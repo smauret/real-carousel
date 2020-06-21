@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
 import anime from 'animejs/lib/anime.es.js';
+import SlideIndex from './SlideIndex'
 
 interface CarouselProps {
     children: Array<React.ReactNode>;
@@ -68,13 +69,7 @@ export default function Carousel({children}: CarouselProps) {
                 <Button variant="contained" onClick={() => goForward()}>Forward</Button>
             </Grid>
             <Grid item xs={12}  style={{padding:'10px'}}    >
-                <Typography>Slide: {activeIndex}</Typography>
-            </Grid>
-            <Grid item xs={1} style={{padding:'10px'}}>
-                <Button variant="contained" onClick={() => fadeIn()}>animate in</Button>
-            </Grid>
-            <Grid item xs={1} style={{padding:'10px'}}>
-                <Button variant="contained" onClick={() => fadeOut()}>animate out</Button>
+                <SlideIndex currentIndex={activeIndex} totalNumSlides={children.length}/>
             </Grid>
         </Grid>
     )
