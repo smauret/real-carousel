@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import Typography from '@material-ui/core/Typography';
+import anime from 'animejs/lib/anime.es.js';
 
 interface CarouselProps {
     children: Array<React.ReactNode>;
@@ -9,34 +10,72 @@ interface CarouselProps {
 
 export default function Carousel({children}: CarouselProps) {
     const [activeIndex, setActiveIndex] = useState(0);
+    useEffect(() => {fadeIn()})
 
     const subArray = children.slice(activeIndex, activeIndex + 1);
 
-    console.log('activeIndex', activeIndex)
+    const fadeIn = () => {
+        anime({
+            targets: '.anim',
+            duration: 1000,
+            opacity: 1,
+            translateY: 0,
+            easing: 'linear'
+        });
+    }
+    const fadeOut = () => {
+        anime({
+            targets: '.anim',
+            duration: 1000,
+            opacity: 0,
+            translateY: 0,
+            easing: 'linear'
+        });
+    }
     const goBackward = () => {
+
         if (activeIndex !== 0) {
-            setActiveIndex(activeIndex - 1)
+            fadeOut()
+            setTimeout(function(){
+                setActiveIndex(activeIndex - 1)
+                fadeIn()
+            }, 1000);
+
         }
+        return subArray
     }
 
     const goForward = () => {
         if (activeIndex !== children.length - 1) {
-            setActiveIndex(activeIndex + 1)
+            fadeOut()
+            setTimeout(function(){
+                setActiveIndex(activeIndex + 1)
+                fadeIn()
+            }, 1000);
         }
+        return subArray
     }
 
     return (
-        <Grid container>
-            <Grid item xs={1}>
+        <Grid container style={{justifyContent: 'center', alignContent:'space-around'}}>
+            <Grid item xs={1} style={{padding:'10px'}}>
                 <Button variant="contained" onClick={() => goBackward()}>Backward</Button>
             </Grid>
-            <Grid container item xs={10} style={{justifyContent: 'space-around'}} spacing={2}>
+            <Grid container item xs={10} style={{justifyContent: 'space-around', padding:'10px'}} spacing={2}>
                 {subArray}
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1} style={{padding:'10px'}}>
                 <Button variant="contained" onClick={() => goForward()}>Forward</Button>
             </Grid>
-            <Typography>Slide: {activeIndex}</Typography>
+            <Grid item xs={12}  style={{padding:'10px'}}    >
+                <Typography>Slide: {activeIndex}</Typography>
+            </Grid>
+            <Grid item xs={1} style={{padding:'10px'}}>
+                <Button variant="contained" onClick={() => fadeIn()}>animate in</Button>
+            </Grid>
+            <Grid item xs={1} style={{padding:'10px'}}>
+                <Button variant="contained" onClick={() => fadeOut()}>animate out</Button>
+            </Grid>
         </Grid>
     )
 }

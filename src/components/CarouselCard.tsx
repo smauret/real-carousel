@@ -1,7 +1,5 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 
 interface CarouselCardProps {
     color: string;
@@ -10,13 +8,7 @@ interface CarouselCardProps {
 const CarouselCard: React.FC<CarouselCardProps> = ({color}) => {
 
     return (
-        <Card style={{backgroundColor: color, minWidth: 275}}>
-            <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                    Word of the Day
-                </Typography>
-            </CardContent>
-        </Card>
+        <Card className="anim" style={{backgroundColor: color, minWidth: 275, opacity:0}}/>
     );
 }
 
