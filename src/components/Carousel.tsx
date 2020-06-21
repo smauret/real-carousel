@@ -61,7 +61,7 @@ export default function Carousel({children}: CarouselProps) {
             <Grid item xs={1} style={{padding:'10px'}}>
                 <Button variant="contained" onClick={() => goBackward()}>Backward</Button>
             </Grid>
-            <Grid container item xs={10} style={{justifyContent: 'space-around', padding:'10px'}} spacing={2}>
+            <Grid container item xs={4} style={{justifyContent: 'space-around', padding:'10px'}} spacing={2}>
                 {subArray}
             </Grid>
             <Grid item xs={1} style={{padding:'10px'}}>
